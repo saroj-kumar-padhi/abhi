@@ -1,6 +1,9 @@
 import 'package:abhisehk/view/verification_otp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../controller/controller.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({super.key});
@@ -16,8 +19,36 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   Widget build(BuildContext context) {
     var mainHeight = MediaQuery.of(context).size.height;
     var mainWidth = MediaQuery.of(context).size.width;
+    PasswordVisibilityController controller =
+        Get.put(PasswordVisibilityController());
+
+    RxBool confirmPassWord = true.obs;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent, // Make the app bar transparent
+        shadowColor: Colors.black,
+        elevation: 5,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.deepPurple, Colors.pink],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              tileMode: TileMode.clamp,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.menu,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            // Add your onPressed logic here
+          },
+        ),
+      ),
       body: Stack(
         children: [
           Container(
@@ -39,25 +70,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     SizedBox(
                       height: mainHeight / 12,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "KRI ",
-                          style: TextStyle(
-                              fontSize: mainHeight / 22, color: Colors.white),
-                        ),
-                        Icon(
-                          Icons.shopping_bag,
-                          color: Colors.white,
-                          size: mainHeight / 17,
-                        ),
-                        Text(
-                          " AAR",
-                          style: TextStyle(
-                              fontSize: mainHeight / 22, color: Colors.white),
-                        ),
-                      ],
+                    Image.asset(
+                      "assest/Krizaar logo.png",
+                      height: 65,
                     ),
                     SizedBox(
                       height: mainHeight / 20,
@@ -78,7 +93,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           fontWeight: FontWeight.w300),
                     ),
                     SizedBox(
-                      height: mainHeight / 20,
+                      height: mainHeight / 30,
                     ),
                     Container(
                       height: mainHeight / 15,
@@ -88,63 +103,66 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           color: Colors.white,
                           border: Border.all(color: Colors.deepOrangeAccent)),
                       child: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 2, left: 20, right: 8),
-                        child: TextFormField(
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "New Password",
-                            hintStyle:
-                                const TextStyle(fontWeight: FontWeight.w300),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  _isVisible = !_isVisible;
-                                });
-                              },
-                              icon: Icon(_isVisible
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined),
+                          padding:
+                              const EdgeInsets.only(top: 2, left: 20, right: 8),
+                          child: Obx(
+                            () => TextField(
+                              obscureText: !controller.isVisible.value,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "New Password",
+                                hintStyle: const TextStyle(
+                                    fontWeight: FontWeight.w300),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    controller.changeVisibility();
+                                  },
+                                  icon: Icon(controller.isVisible.value
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
+                          )),
                     ),
                     SizedBox(
-                      height: mainHeight / 20,
+                      height: mainHeight / 28,
                     ),
-                    Container(
-                      height: mainHeight / 15,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.white,
-                          border: Border.all(color: Colors.deepOrangeAccent)),
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 2, left: 20, right: 8),
-                        child: TextFormField(
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Confirm Password",
-                            hintStyle:
-                                const TextStyle(fontWeight: FontWeight.w300),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
+                    Obx(() {
+                      return Container(
+                        height: mainHeight / 15,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.white,
+                            border: Border.all(color: Colors.deepOrangeAccent)),
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(top: 2, left: 20, right: 8),
+                          child: TextField(
+                            obscureText: confirmPassWord.value,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Confirm Password",
+                              hintStyle:
+                                  const TextStyle(fontWeight: FontWeight.w300),
+                              suffixIcon: IconButton(
+                                onPressed: () {
                                   _isVisible = !_isVisible;
-                                });
-                              },
-                              icon: Icon(_isVisible
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined),
+                                  confirmPassWord.value =
+                                      !confirmPassWord.value;
+                                },
+                                icon: Icon(_isVisible
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    }),
                     SizedBox(
                       height: mainHeight / 18,
                     ),

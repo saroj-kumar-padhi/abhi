@@ -16,6 +16,30 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     var mainWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent, // Make the app bar transparent
+        shadowColor: Colors.black,
+        elevation: 5,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.deepPurple, Colors.pink],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              tileMode: TileMode.clamp,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.menu,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            // Add your onPressed logic here
+          },
+        ),
+      ),
       body: Stack(
         children: [
           Container(
@@ -37,25 +61,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     SizedBox(
                       height: mainHeight / 12,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "KRI ",
-                          style: TextStyle(
-                              fontSize: mainHeight / 22, color: Colors.white),
-                        ),
-                        Icon(
-                          Icons.shopping_bag,
-                          color: Colors.white,
-                          size: mainHeight / 17,
-                        ),
-                        Text(
-                          " AAR",
-                          style: TextStyle(
-                              fontSize: mainHeight / 22, color: Colors.white),
-                        ),
-                      ],
+                    Image.asset(
+                      "assest/Krizaar logo.png",
+                      height: 65,
                     ),
                     SizedBox(
                       height: mainHeight / 20,

@@ -1,7 +1,10 @@
+import 'package:abhisehk/view/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
+import '../controller/controller.dart';
 import 'forgot_password.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -12,27 +15,51 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-
-  bool _isVisible = false;
+  final bool _isVisible = false;
 
   @override
   Widget build(BuildContext context) {
-
     var mainHeight = MediaQuery.of(context).size.height;
     var mainWidth = MediaQuery.of(context).size.width;
 
+    PasswordVisibilityController controller =
+        Get.put(PasswordVisibilityController());
+
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent, // Make the app bar transparent
+        shadowColor: Colors.black,
+        elevation: 5,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.deepPurple, Colors.pink],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              tileMode: TileMode.clamp,
+            ),
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.menu,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            // Add your onPressed logic here
+          },
+        ),
+      ),
       body: Stack(
         children: [
           Container(
             height: mainHeight,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
-                  colors: [ Colors.deepPurple, Colors.pink],
+                  colors: [Colors.deepPurple, Colors.pink],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
-                  tileMode: TileMode.clamp
-              ),
+                  tileMode: TileMode.clamp),
             ),
           ),
           ListView(
@@ -41,28 +68,33 @@ class _SignUpPageState extends State<SignUpPage> {
                 padding: const EdgeInsets.all(15),
                 child: Column(
                   children: [
-                    SizedBox(height: mainHeight/12,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("KRI ", style: TextStyle(fontSize: mainHeight/22, color: Colors.white),),
-                        Icon(Icons.shopping_bag, color: Colors.white, size: mainHeight/17,),
-                        Text(" AAR", style: TextStyle(fontSize: mainHeight/22, color: Colors.white),),
-                      ],
+                    SizedBox(
+                      height: mainHeight / 20,
                     ),
-                    SizedBox(height: mainHeight/18,),
-                    Text("Sign Up", style: TextStyle(fontSize: mainHeight/25, color: Colors.white),),
+                    Image.asset(
+                      "assest/Krizaar logo.png",
+                      height: 65,
+                    ),
+                    SizedBox(
+                      height: mainHeight / 23,
+                    ),
+                    Text(
+                      "Sign Up",
+                      style: TextStyle(
+                          fontSize: mainHeight / 25, color: Colors.white),
+                    ),
                     // Text("Sign In to Continue", style: TextStyle(color: Colors.grey[100],fontSize: mainHeight/42,),),
 
-                    SizedBox(height: mainHeight/20,),
+                    SizedBox(
+                      height: mainHeight / 20,
+                    ),
                     Container(
-                      height: mainHeight/15,
+                      height: mainHeight / 15,
                       width: double.infinity,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white,
-                          border: Border.all(color: Colors.deepOrangeAccent)
-                      ),
+                          border: Border.all(color: Colors.deepOrangeAccent)),
                       child: Padding(
                         padding: const EdgeInsets.only(top: 2, left: 20),
                         child: TextFormField(
@@ -70,20 +102,21 @@ class _SignUpPageState extends State<SignUpPage> {
                           decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: "Full Name",
-                              hintStyle: TextStyle(fontWeight: FontWeight.w300)
-                          ),
+                              hintStyle:
+                                  TextStyle(fontWeight: FontWeight.w300)),
                         ),
                       ),
                     ),
-                    SizedBox(height: mainHeight/30,),
+                    SizedBox(
+                      height: mainHeight / 30,
+                    ),
                     Container(
-                      height: mainHeight/15,
+                      height: mainHeight / 15,
                       width: double.infinity,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white,
-                          border: Border.all(color: Colors.deepOrangeAccent)
-                      ),
+                          border: Border.all(color: Colors.deepOrangeAccent)),
                       child: Padding(
                         padding: const EdgeInsets.only(top: 2, left: 20),
                         child: TextFormField(
@@ -91,67 +124,92 @@ class _SignUpPageState extends State<SignUpPage> {
                           decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: "Email",
-                              hintStyle: TextStyle(fontWeight: FontWeight.w300)
-                          ),
+                              hintStyle:
+                                  TextStyle(fontWeight: FontWeight.w300)),
                         ),
                       ),
                     ),
-                    SizedBox(height: mainHeight/30,),
+                    SizedBox(
+                      height: mainHeight / 30,
+                    ),
                     Container(
-                      height: mainHeight/15,
+                      height: mainHeight / 15,
                       width: double.infinity,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: Colors.white,
-                          border: Border.all(color: Colors.deepOrangeAccent)
-                      ),
+                          border: Border.all(color: Colors.deepOrangeAccent)),
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 2, left: 20, right: 8),
-                        child: TextFormField(
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Password",
-                            hintStyle: TextStyle(fontWeight: FontWeight.w300),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  _isVisible = !_isVisible;
-                                });
-                              },
-                              icon: Icon(_isVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined),
+                          padding:
+                              const EdgeInsets.only(top: 2, left: 20, right: 8),
+                          child: Obx(
+                            () => TextField(
+                              obscureText: !controller.isVisible.value,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Password",
+                                hintStyle: const TextStyle(
+                                    fontWeight: FontWeight.w300),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    controller.changeVisibility();
+                                  },
+                                  icon: Icon(controller.isVisible.value
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
+                          )),
                     ),
-
-                    SizedBox(height: mainHeight/15,),
+                    SizedBox(
+                      height: mainHeight / 20,
+                    ),
                     GestureDetector(
                       child: Container(
-                        height: mainHeight/15,
-                        width: mainWidth/2.5,
+                        height: mainHeight / 15,
+                        width: mainWidth / 2.5,
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
-                              colors: [ Colors.pink, CupertinoColors.systemPink],
+                              colors: [Colors.pink, CupertinoColors.systemPink],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              tileMode: TileMode.clamp
-                          ),
+                              tileMode: TileMode.clamp),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: Center(child: Text("Continue", style: TextStyle(color: Colors.white, fontSize: mainHeight/45, fontWeight: FontWeight.w700),)),
+                        child: Center(
+                            child: Text(
+                          "Continue",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: mainHeight / 45,
+                              fontWeight: FontWeight.w700),
+                        )),
                       ),
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordPage(),));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Home(),
+                            ));
                       },
                     ),
-                    SizedBox(height: mainHeight/25,),
+                    SizedBox(
+                      height: mainHeight / 25,
+                    ),
 
-                    Text("By continuing you agree to our Term of Service and\nPrivacy Policy", textAlign: TextAlign.center, style: TextStyle(color: Colors.grey[100],fontSize: mainHeight/56, fontWeight: FontWeight.w300),),
-                    SizedBox(height: mainHeight/40,),
-
-
+                    Text(
+                      "By continuing you agree to our Term of Service and\nPrivacy Policy",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.grey[100],
+                          fontSize: mainHeight / 56,
+                          fontWeight: FontWeight.w300),
+                    ),
+                    SizedBox(
+                      height: mainHeight / 40,
+                    ),
                   ],
                 ),
               )

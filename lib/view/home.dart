@@ -93,7 +93,7 @@ class _HomePageState extends State<Home> {
             ),
           ),
           Positioned(
-            top: 20,
+            top: 65,
             left: 55,
             child: Center(
               child: Image.asset(
@@ -103,11 +103,11 @@ class _HomePageState extends State<Home> {
             ),
           ),
           const Positioned(
-            top: 100,
+            top: 145,
             left: 80,
             child: Text(
               "Cheaper Faster Better",
-              style: TextStyle(fontSize: 20, color: Colors.white),
+              style: TextStyle(fontSize: 19, color: Colors.white),
             ),
           ),
         ],
